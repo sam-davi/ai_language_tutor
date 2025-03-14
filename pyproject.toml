@@ -1,0 +1,9 @@
+[project]
+name = "ai-language-tutor"
+version = "0.1.0"
+description = "Chat application for an AI language tutor"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.1.7",
+]
