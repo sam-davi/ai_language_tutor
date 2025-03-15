@@ -8,6 +8,8 @@ dependencies = [
     "chardet>=5.2.0",
     "django>=5.1.7",
     "django-allauth[socialaccount]>=65.5.0",
+    "django-environ>=0.12.0",
+    "openai>=1.66.3",
 ]
 
 [dependency-groups]

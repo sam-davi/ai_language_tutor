@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Actor(models.TextChoices):
-    STUDENT = "Student"
-    TUTOR = "Tutor"
+    USER = "user"
+    ASSISTANT = "assistant"
 
 
 class Language(models.TextChoices):
