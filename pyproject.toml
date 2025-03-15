@@ -5,8 +5,9 @@ description = "Chat application for an AI language tutor"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "chardet>=5.2.0",
     "django>=5.1.7",
-    "django-allauth>=65.5.0",
+    "django-allauth[socialaccount]>=65.5.0",
 ]
 
 [dependency-groups]
