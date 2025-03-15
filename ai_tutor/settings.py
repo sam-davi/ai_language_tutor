@@ -147,8 +147,14 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {
             "access_type": "online",
         },
-    }
+        "EMAIL_AUTHENTICATION": True,
+    },
+    "github": {
+        "EMAIL_AUTHENTICATION": True,
+    },
 }
+
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
