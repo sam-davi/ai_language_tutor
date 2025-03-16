@@ -1,0 +1,9 @@
+<h1>Let's Learn {{ language }}</h1>
+<ul>
+    {% for message in messages %}<li>{{ message.actor }}: {{ message.content }}</li>{% endfor %}
+</ul>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>

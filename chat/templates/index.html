@@ -1,0 +1,9 @@
+<h1>AI Lanugage Tutor</h1>
+<h3>Languages</h3>
+<ul>
+    {% for language in languages %}
+        <li>
+            <a href="{% url 'room' language.0 %}">{{ language.0 }}</a>
+        </li>
+    {% endfor %}
+</ul>
