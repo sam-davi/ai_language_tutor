@@ -1,9 +1,28 @@
-<h1>Let's Learn {{ language }}</h1>
-<ul>
-    {% for message in messages %}<li>{{ message.actor }}: {{ message.content }}</li>{% endfor %}
-</ul>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
+{% extends "base.html" %}
+{% block title %}
+    Let's Learn {{ language }}
+{% endblock title %}
+{% block content %}
+    <h1 class="text-4xl font-bold">Let's Learn {{ language }}</h1>
+    <ul class="max-w-5xl flex flex-col items-stretch gap-2">
+        {% for message in messages %}
+            {% if message.actor == 'user' %}
+                <li class="self-end ml-20">
+                    <div class="w-full p-4 bg-blue-600 text-white rounded-xl">{{ message.content }}</div>
+                </li>
+            {% else %}
+                <li class="self-start mr-20">
+                    <div class="w-full p-4 bg-white border-2 rounded-xl">{{ message.content }}</div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <form class="max-w-5xl w-full flex flex-col gap-2 items-stretch"
+          method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input class="self-end min-w-30 p-2 bg-blue-600 text-white rounded-xl hover:cursor-pointer"
+               type="submit"
+               value="Submit" />
+    </form>
+{% endblock content %}
