@@ -4,7 +4,7 @@
 {% endblock title %}
 {% block content %}
     <h1 class="text-4xl font-bold">Let's Learn {{ language }}</h1>
-    <ul class="max-w-5xl flex flex-col items-stretch gap-2">
+    <ul class="max-h-[58vh] overflow-scroll max-w-5xl flex flex-col items-stretch gap-2">
         {% for message in messages %}
             {% if message.actor == 'user' %}
                 <li class="self-end ml-20">

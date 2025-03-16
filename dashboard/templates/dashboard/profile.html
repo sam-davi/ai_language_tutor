@@ -1,12 +1,30 @@
-<h1>Welcome back {{ request.user.username }}!</h1>
-<ul>
-    <li>
-        <a href="{% url 'chat' %}">Start Learning</a>
-    </li>
-    <li>
-        <a href="{% url 'account_email' %}">Manage Accounts</a>
-    </li>
-    <li>
-        <a href="{% url 'account_logout' %}">Logout</a>
-    </li>
-</ul>
+{% extends "base.html" %}
+{% block title %}
+    Profile
+{% endblock title %}
+{% block content %}
+    <h1 class="text-4xl font-bold">Welcome back {{ request.user.username }}!</h1>
+    <ul class="flex flex-col gap-2">
+        <li>
+            <a href="{% url 'chat' %}">
+                <div class="w-100 h-20 text-center content-center border-2 text-xl font-bold bg-white hover:bg-blue-600 hover:text-white">
+                    Start Learning
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'account_email' %}">
+                <div class="w-100 h-20 text-center content-center border-2 text-xl font-bold bg-white hover:bg-blue-600 hover:text-white">
+                    Manage Accounts
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'account_logout' %}">
+                <div class="w-100 h-20 text-center content-center border-2 text-xl font-bold bg-white hover:bg-blue-600 hover:text-white">
+                    Logout
+                </div>
+            </a>
+        </li>
+    </ul>
+{% endblock content %}
