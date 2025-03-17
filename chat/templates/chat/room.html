@@ -4,7 +4,8 @@
 {% endblock title %}
 {% block content %}
     <h1 class="text-4xl font-bold">Let's Learn {{ language }}</h1>
-    <ul class="max-h-[58vh] overflow-scroll max-w-5xl flex flex-col items-stretch gap-2">
+    <ul id="messages"
+        class="overflow-y-scroll scroll-smooth max-w-5xl flex flex-col items-stretch gap-2">
         {% for message in messages %}
             {% if message.actor == 'user' %}
                 <li class="self-end ml-20">
@@ -17,12 +18,57 @@
             {% endif %}
         {% endfor %}
     </ul>
-    <form class="max-w-5xl w-full flex flex-col gap-2 items-stretch"
-          method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input class="self-end min-w-30 p-2 bg-blue-600 text-white rounded-xl hover:cursor-pointer"
-               type="submit"
-               value="Submit" />
-    </form>
+    <div class="max-w-5xl w-full flex flex-col gap-2 items-stretch">
+        <input id="chat-message-input"
+               class="w-full p-4 bg-white border-2 rounded-xl"
+               type="text"
+               size="100">
+        <input id="chat-message-submit"
+               class="self-end min-w-30 p-2 bg-blue-600 text-white rounded-xl hover:cursor-pointer"
+               type="button"
+               value="Send">
+    </div>
+    {{ language|json_script:"language" }}
+    <script>
+        document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+            
+        const language = JSON.parse(document.getElementById("language").textContent);
+
+        const chatSocket = new WebSocket(
+            "ws://"
+            + window.location.host
+            + "/ws/chat/"
+            + language
+            + "/"
+        )
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            // add new message
+            const message = document.createElement("li");
+            message.classList.add("self-start", "mr-20");
+            message.innerHTML = `<div class="w-full p-4 bg-white border-2 rounded-xl">${data.message}</div>`;
+            document.querySelector("#messages").appendChild(message);
+            // scroll to the bottom of the messages
+            document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+        };
+
+        chatSocket.onclose = function (e) {
+            console.error("Chat socket closed unexpectedly");
+        };
+
+        document.querySelector("#chat-message-submit").onclick = function (e) {
+            const messageInput = document.querySelector("#chat-message-input");
+            const messageValue = messageInput.value;
+            chatSocket.send(JSON.stringify({"message": messageValue}));
+            // add new message
+            const message = document.createElement("li");
+            message.classList.add("self-end", "ml-20");
+            message.innerHTML = `<div class="w-full p-4 bg-blue-600 text-white rounded-xl">${messageValue}</div>`;
+            document.querySelector("#messages").appendChild(message);
+            // scroll to the bottom of the messages
+            document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+            messageInput.value = "";
+        };
+    </script>
 {% endblock content %}

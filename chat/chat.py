@@ -24,6 +24,10 @@ def get_completion(language, history=None, model="google/gemma-2-9b-it:free"):
                 """,
         },
         *history,
+        {
+            "role": "developer",
+            "content": f"Based on the previous conversation and user's input, generate a response acting as the {language} language assistant. Do not generate any response as the user.",
+        },
     ]
     response = client.chat.completions.create(
         model=model,
@@ -37,4 +41,8 @@ def save_message(room: Room, actor: Actor, content: str):
 
     if actor == Actor.USER:
         history = room.messages.order_by("timestamp").values("actor", "content")
-        save_message(room, Actor.ASSISTANT, get_completion(room.language, history))
+        content = save_message(
+            room, Actor.ASSISTANT, get_completion(room.language, history)
+        )
+
+    return content

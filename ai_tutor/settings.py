@@ -38,6 +38,12 @@ OPENROUTER_API_KEY = env("OPENROUTER_API_KEY")
 # Application definition
 
 INSTALLED_APPS = [
+    # Daphne
+    "daphne",
+    # local apps
+    "dashboard",
+    "chat",
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -50,9 +56,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
-    # local apps
-    "dashboard",
-    "chat",
 ]
 
 MIDDLEWARE = [
@@ -92,6 +95,8 @@ STATICFILES_DIRS = [
 ]
 
 WSGI_APPLICATION = "ai_tutor.wsgi.application"
+
+ASGI_APPLICATION = "ai_tutor.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
