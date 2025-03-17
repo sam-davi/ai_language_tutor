@@ -3,13 +3,12 @@
     AI Language Tutor
 {% endblock title %}
 {% block content %}
-    <h1 class="text-4xl font-bold">AI Language Tutor</h1>
-    <h3 class="text-2xl font-bold">Languages</h3>
+    <h1 class="text-4xl font-bold">Start Learning!</h1>
     <ul class="grid grid-cols-2 gap-2">
         {% for language in languages %}
             <li>
                 <a href="{% url 'room' language.0 %}">
-                    <div class="w-100 h-20 text-center content-center border-2 text-xl font-bold bg-white hover:bg-blue-600 hover:text-white">
+                    <div class="max-w-100 min-w-40 h-20 text-center content-center border-2 text-xl font-bold bg-white hover:bg-blue-600 hover:text-white">
                         {{ language.0 }}
                     </div>
                 </a>
