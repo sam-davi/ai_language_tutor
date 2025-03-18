@@ -6,17 +6,6 @@
     <h1 class="text-4xl font-bold">Let's Learn {{ language }}</h1>
     <ul id="messages"
         class="overflow-y-scroll scroll-smooth max-w-5xl flex flex-col items-stretch gap-2">
-        {% for message in messages %}
-            {% if message.actor == 'user' %}
-                <li class="self-end ml-20">
-                    <div class="w-full p-4 bg-blue-600 text-white rounded-xl">{{ message.content }}</div>
-                </li>
-            {% else %}
-                <li class="self-start mr-20">
-                    <div class="w-full p-4 bg-white border-2 rounded-xl">{{ message.content }}</div>
-                </li>
-            {% endif %}
-        {% endfor %}
     </ul>
     <div class="max-w-5xl w-full flex flex-col gap-2 items-stretch">
         <input id="chat-message-input"
@@ -30,7 +19,9 @@
     </div>
     {{ language|json_script:"language" }}
     <script>
-        document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+        function scrollToBottom() {
+            document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+        }
             
         const language = JSON.parse(document.getElementById("language").textContent);
 
@@ -42,33 +33,52 @@
             + "/"
         )
 
+        const getMessageHTML = (element, data) => {
+            if (data.actor == 'user') {
+                element.classList.add("self-end", "ml-20");
+                element.innerHTML =  `<div class="w-full p-4 bg-blue-600 text-white rounded-xl">${data.message}</div>`;
+            } else {
+                element.classList.add("self-start", "mr-20");
+                element.innerHTML =  `<div class="w-full p-4 bg-white border-2 rounded-xl">${data.message}</div>`;
+            }
+        }
+
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             // add new message
             const message = document.createElement("li");
-            message.classList.add("self-start", "mr-20");
-            message.innerHTML = `<div class="w-full p-4 bg-white border-2 rounded-xl">${data.message}</div>`;
+            getMessageHTML(message, data);
             document.querySelector("#messages").appendChild(message);
-            // scroll to the bottom of the messages
-            document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+            scrollToBottom();
         };
 
         chatSocket.onclose = function (e) {
             console.error("Chat socket closed unexpectedly");
         };
 
-        document.querySelector("#chat-message-submit").onclick = function (e) {
+        function onSubmit(e) {
             const messageInput = document.querySelector("#chat-message-input");
             const messageValue = messageInput.value;
             chatSocket.send(JSON.stringify({"message": messageValue}));
             // add new message
             const message = document.createElement("li");
-            message.classList.add("self-end", "ml-20");
-            message.innerHTML = `<div class="w-full p-4 bg-blue-600 text-white rounded-xl">${messageValue}</div>`;
+            getMessageHTML(message, {"actor": "user", "message": messageValue});
             document.querySelector("#messages").appendChild(message);
-            // scroll to the bottom of the messages
-            document.querySelector("#messages").scrollTop = document.querySelector("#messages").scrollHeight;
+            scrollToBottom();
             messageInput.value = "";
+        };
+
+        document.querySelector("#chat-message-submit").onclick = onSubmit;
+        document.querySelector("#chat-message-input").onkeyup = function (e) {
+            if (e.key === "Enter") {
+                onSubmit(e);
+            }
+        };
+
+        document.querySelector("#chat-message-input").onkeydown = function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+            }
         };
     </script>
 {% endblock content %}

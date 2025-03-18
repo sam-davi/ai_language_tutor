@@ -15,17 +15,9 @@ def index(request):
 def room(request, language):
     if language not in Language:
         return redirect("index")
-    chat_room, created = Room.objects.get_or_create(
-        owner=request.user, language=language
-    )
-    if created:
-        save_message(chat_room, Actor.ASSISTANT, get_completion(language))
-
-    messages = chat_room.messages.order_by("timestamp").all()
 
     context = {
         "language": language,
-        "messages": messages,
     }
 
     return render(
