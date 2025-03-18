@@ -30,8 +30,12 @@
                 {% endif %}
             </nav>
             <div class="h-full flex flex-col items-center gap-4 pt-20 px-4 pb-4">
+                {% block body %}
+                {% endblock body %}
                 {% block content %}
                 {% endblock content %}
+                {% block extra_body %}
+                {% endblock extra_body %}
             </div>
         </div>
     </body>

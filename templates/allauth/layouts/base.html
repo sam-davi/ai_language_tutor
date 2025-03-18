@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans "Account" %}
+{% endblock title %}
+{% block body %}
+    {% if messages %}
+        <div class="flex gap-2 justify-center rounded-xl p-2 bg-blue-500 text-white">
+            <strong>{% trans "Messages:" %}</strong>
+            {% for message in messages %}<span>{{ message }}</span>{% endfor %}
+        </div>
+    {% endif %}
+    <div>
+        <ul class="flex gap-2">
+            {% if user.is_authenticated %}
+                {% url 'account_email' as email_url_ %}
+                {% if email_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ email_url_ }}">{% trans "Change Email" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_change_password' as change_password_url_ %}
+                {% if change_password_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ change_password_url_ }}">{% trans "Change Password" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'socialaccount_connections' as connections_url_ %}
+                {% if connections_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ connections_url_ }}">{% trans "Account Connections" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'mfa_index' as mfa_url_ %}
+                {% if mfa_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ mfa_url_ }}">{% trans "Two-Factor Authentication" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'usersessions_list' as usersessions_list_url_ %}
+                {% if usersessions_list_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ usersessions_list_url_ }}">{% trans "Sessions" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_logout' as logout_url_ %}
+                {% if logout_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ logout_url_ }}">{% trans "Sign Out" %}</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                {% url 'account_login' as login_url_ %}
+                {% if login_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ login_url_ }}">{% trans "Sign In" %}</a>
+                    </li>
+                {% endif %}
+                {% url 'account_signup' as signup_url_ %}
+                {% if signup_url_ %}
+                    <li>
+                        <a class="p-2 border-2 bg-white font-bold hover:bg-blue-500 hover:text-white"
+                           href="{{ signup_url_ }}">{% trans "Sign Up" %}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+{% endblock body %}
+{% block extra_body %}
+{% endblock extra_body %}

@@ -1,0 +1,11 @@
+{% load allauth %}
+{% for field in attrs.form.visible_fields %}
+    {% element field type=field.field.widget.input_type name=field.name value=field.value id=field.id_for_label %}
+    {% slot label %}
+    {{ field.label }}
+{% endslot %}
+{% endelement %}
+{% if field.errors %}
+    {% for error in field.errors %}<p class="text-red-500">{{ error }}</p>{% endfor %}
+{% endif %}
+{% endfor %}

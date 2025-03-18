@@ -6,11 +6,13 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-500: oklch(0.637 0.237 25.331);
     --color-cyan-300: oklch(0.865 0.127 207.078);
     --color-blue-400: oklch(0.707 0.165 254.624);
     --color-blue-500: oklch(0.623 0.214 259.815);
     --color-blue-600: oklch(0.546 0.245 262.881);
     --color-purple-300: oklch(0.827 0.119 306.383);
+    --color-gray-200: oklch(0.928 0.006 264.531);
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-5xl: 64rem;
@@ -201,6 +203,9 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .my-auto {
     margin-block: auto;
   }
@@ -243,6 +248,12 @@
   .min-w-40 {
     min-width: calc(var(--spacing) * 40);
   }
+  .min-w-80 {
+    min-width: calc(var(--spacing) * 80);
+  }
+  .flex-grow {
+    flex-grow: 1;
+  }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -255,11 +266,17 @@
   .items-center {
     align-items: center;
   }
+  .items-start {
+    align-items: flex-start;
+  }
   .items-stretch {
     align-items: stretch;
   }
   .justify-between {
     justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
@@ -292,8 +309,14 @@
   .bg-blue-400 {
     background-color: var(--color-blue-400);
   }
+  .bg-blue-500 {
+    background-color: var(--color-blue-500);
+  }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
+  }
+  .bg-gray-200 {
+    background-color: var(--color-gray-200);
   }
   .bg-white {
     background-color: var(--color-white);
@@ -309,6 +332,18 @@
   .to-purple-300 {
     --tw-gradient-to: var(--color-purple-300);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .fill-\[\#4caf50\] {
+    fill: #4caf50;
+  }
+  .fill-\[\#1565c0\] {
+    fill: #1565c0;
+  }
+  .fill-\[\#e53935\] {
+    fill: #e53935;
+  }
+  .fill-\[\#fbc02d\] {
+    fill: #fbc02d;
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -358,8 +393,18 @@
   .text-blue-600 {
     color: var(--color-blue-600);
   }
+  .text-red-500 {
+    color: var(--color-red-500);
+  }
   .text-white {
     color: var(--color-white);
+  }
+  .group-hover\:fill-white {
+    &:is(:where(.group):hover *) {
+      @media (hover: hover) {
+        fill: var(--color-white);
+      }
+    }
   }
   .hover\:cursor-pointer {
     &:hover {
