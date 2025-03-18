@@ -12,6 +12,11 @@ A Django project for language learning with AI support.
 	* `DEBUG`: a boolean value indicating whether to run the project in debug mode (e.g. `True`)
     * `OPENROUTER_BASE_URL`: the base URL for the OpenRouter API `"https://openrouter.ai/api/v1"`
 	* `OPENROUTER_API_KEY`: your OpenRouter API key
+    * `DB_NAME`: the name of the Postgres database
+    * `DB_USER`: the username for the Postgres database
+    * `DB_PASSWORD`: the password for the Postgres database
+    * `DB_HOST`: the host connection for the Postgres database
+    * `DB_PORT`: the port for the Postgres database
 4. Run `python manage.py migrate` to create the database tables.
 5. Run `python manage.py runserver` to start the development server.
 6. Open a web browser and navigate to `http://localhost:8000/` to see the project in action.
