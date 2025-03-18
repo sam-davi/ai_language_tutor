@@ -5,6 +5,7 @@ A Django project for language learning with AI support.
 ## Getting started
 
 1. Clone the repository and navigate to the project directory.
+    * If using a postgres database connection, clone the `aws-postgres` branch instead of `master`.
 2. Set up the virtual environment and install the dependencies with `uv sync`
 3. Create a `.env` file or rename the `.env.example` file and add the following variables:
 	* `SECRET_KEY`: a secret key for Django (you can generate one with `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`)
@@ -20,8 +21,8 @@ A Django project for language learning with AI support.
 1. Create a new superuser with the command `python manage.py createsuperuser` or `uv run manage.py createsuperuser`
 2. Login to the Django admin page at `http://localhost:8000/admin/`
 3. Add a new social application at `http://localhost:8000/admin/socialaccount/socialapp/add/` completing the following fields:
-    * Provider (add any additional providers you want to support to settings.INSTALLED_APPS in `settings.py`)
-    * Name
-    * Client ID
-    * Scecret key
+    * `Provider` (add any additional providers you want to support to settings.INSTALLED_APPS in `settings.py`)
+    * `Name`
+    * `Client ID`
+    * `Scecret key`
 
